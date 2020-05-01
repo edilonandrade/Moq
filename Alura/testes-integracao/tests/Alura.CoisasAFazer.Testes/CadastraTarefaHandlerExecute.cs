@@ -6,17 +6,17 @@ using Xunit;
 
 namespace Alura.CoisasAFazer.Testes
 {
-    public class UnitTest1
+    public class CadastraTarefaHandlerExecute
     {
         [Fact]
-        public void Test1()
+        public void DadaTarefaComInfoValidasDeveIncluirNoBD()
         {
             //Arrange
             var comando = new CadastraTarefa("Estudar XUnit", new Categoria("Estudo"), new DateTime(2020, 12, 31));
             var handler = new CadastraTarefaHandler();
 
             //Act
-            handler.Execute(comando);
+            handler.Execute(comando); //SUT >> CadastraTarefaHandlerExecute
 
             //Assert
             Assert.True(true);
