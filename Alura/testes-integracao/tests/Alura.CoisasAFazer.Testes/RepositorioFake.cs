@@ -2,12 +2,15 @@
 using Alura.CoisasAFazer.Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Alura.CoisasAFazer.Testes
 {
     class RepositorioFake : IRepositorioTarefas
     {
+        List<Tarefa> lista = new List<Tarefa>();
+
         public void AtualizarTarefas(params Tarefa[] tarefas)
         {
             throw new NotImplementedException();
@@ -20,7 +23,7 @@ namespace Alura.CoisasAFazer.Testes
 
         public void IncluirTarefas(params Tarefa[] tarefas)
         {
-            throw new NotImplementedException();
+            tarefas.ToList().ForEach(t => lista.Add(t));
         }
 
         public Categoria ObtemCategoriaPorId(int id)
