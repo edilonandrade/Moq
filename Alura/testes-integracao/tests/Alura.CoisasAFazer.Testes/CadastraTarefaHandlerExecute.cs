@@ -3,6 +3,7 @@ using Alura.CoisasAFazer.Core.Models;
 using Alura.CoisasAFazer.Services.Handlers;
 using System;
 using Xunit;
+using System.Linq;
 
 namespace Alura.CoisasAFazer.Testes
 {
@@ -21,7 +22,8 @@ namespace Alura.CoisasAFazer.Testes
             handler.Execute(comando); //SUT >> CadastraTarefaHandlerExecute
 
             //Assert
-            Assert.True(true);
+            var tarefa = repo.ObtemTarefas(t => t.Titulo == "Estudar XUnit").FirstOrDefault();
+            Assert.NotNull(tarefa);
         }
     }
 }
