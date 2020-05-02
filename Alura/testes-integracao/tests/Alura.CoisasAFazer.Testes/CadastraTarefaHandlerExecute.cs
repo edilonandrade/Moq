@@ -13,8 +13,10 @@ namespace Alura.CoisasAFazer.Testes
         {
             //Arrange
             var comando = new CadastraTarefa("Estudar XUnit", new Categoria("Estudo"), new DateTime(2020, 12, 31));
-            var handler = new CadastraTarefaHandler();
+            var repo = new RepositorioFake();
 
+            var handler = new CadastraTarefaHandler(repo);
+            
             //Act
             handler.Execute(comando); //SUT >> CadastraTarefaHandlerExecute
 
