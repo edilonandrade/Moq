@@ -17,7 +17,7 @@ namespace Alura.CoisasAFazer.Testes
             //Arrange
             var comando = new CadastraTarefa("Estudar XUnit", new Categoria("Estudo"), new DateTime(2020, 12, 31));
 
-            var options = new DbContextOptionsBuilder<DbTarefasContext>()
+            var options = new DbContextOptionsBuilder<DbTarefasContext>()            
                 .UseInMemoryDatabase("DbTarefasContext")
                 .Options;
             var contexto = new DbTarefasContext(options);
