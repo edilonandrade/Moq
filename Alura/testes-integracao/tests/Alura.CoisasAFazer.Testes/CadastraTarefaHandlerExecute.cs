@@ -7,6 +7,7 @@ using System.Linq;
 using Alura.CoisasAFazer.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using Microsoft.Extensions.Logging;
 
 namespace Alura.CoisasAFazer.Testes
 {
@@ -18,13 +19,15 @@ namespace Alura.CoisasAFazer.Testes
             //Arrange
             var comando = new CadastraTarefa("Estudar XUnit", new Categoria("Estudo"), new DateTime(2020, 12, 31));
 
+            var mock = new Mock<ILogger<CadastraTarefaHandler>>();
+
             var options = new DbContextOptionsBuilder<DbTarefasContext>()            
                 .UseInMemoryDatabase("DbTarefasContext")
                 .Options;
             var contexto = new DbTarefasContext(options);
             var repo = new RepositorioTarefa(contexto);
 
-            var handler = new CadastraTarefaHandler(repo);
+            var handler = new CadastraTarefaHandler(repo, mock.Object);
             
             //Act
             handler.Execute(comando); //SUT >> CadastraTarefaHandlerExecute
@@ -40,15 +43,15 @@ namespace Alura.CoisasAFazer.Testes
             //Arrange
             var comando = new CadastraTarefa("Estudar XUnit", new Categoria("Estudo"), new DateTime(2020, 12, 31));
 
+            var mockLogger = new Mock<ILogger<CadastraTarefaHandler>>();
             var mock = new Mock<IRepositorioTarefas>();
-
 
             mock.Setup(r => r.IncluirTarefas(It.IsAny<Tarefa[]>()))
                 .Throws(new Exception("Houve um erro na inclusão de tarefas"));
 
             var repo = mock.Object;
 
-            var handler = new CadastraTarefaHandler(repo);
+            var handler = new CadastraTarefaHandler(repo, mockLogger.Object);
 
             //Act
             CommandResult resultado = handler.Execute(comando);
