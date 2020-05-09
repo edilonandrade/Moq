@@ -34,8 +34,9 @@ namespace Alura.CoisasAFazer.Services.Handlers
                 _repo.IncluirTarefas(tarefa);
                 return new CommandResult(true);
             }
-            catch
+            catch (Exception e)
             {
+                _logger.LogError(e, e.Message);
                 return new CommandResult(false);
             }
 
